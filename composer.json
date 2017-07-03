@@ -1,0 +1,13 @@
+{
+    "name": "root/my-places",
+    "require": {
+        "twig/twig": "1.9.0",
+        "twbs/bootstrap": ">3.2"
+    },
+    "authors": [
+        {
+            "name": "Marcel Roa",
+            "email": "mroa@limetec-biotechnologies.de"
+        }
+    ]
+}
