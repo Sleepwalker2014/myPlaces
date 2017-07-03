@@ -18,6 +18,13 @@ html, body {
     margin: 0px auto;
 }
 
+#bin {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 200px;
+}
+
 #sideBar:hover {
     animation-name: example;
     animation-duration: 0.6s;

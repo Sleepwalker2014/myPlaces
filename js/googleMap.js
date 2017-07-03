@@ -16,6 +16,7 @@ function initMap () {
 
     map.addListener('idle', function (e) {
         loadSearchBox(this);
+        createRemoveMarkerBin(this);
     });
 
     $('#pac-input').hide();
@@ -37,6 +38,10 @@ function addMarker (map, latLng) {
         map.setZoom(20);
         map.setCenter(this.getPosition());
     });
+
+    marker.addListener('dragend', (function(e) {
+        console.log(e);
+    }));
 }
 
 function loadSearchBox (map) {
@@ -45,4 +50,18 @@ function loadSearchBox (map) {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     $('#pac-input').show();
+}
+
+function createRemoveMarkerBin (map) {
+    var removeMarkerBin = new google.maps.OverlayView();
+
+    removeMarkerBin.draw = function () {
+        var div = $('#bin');
+
+        var panes = this.getPanes();
+
+        panes.overlayImage.appendChild($('#bin'));
+        this.setMap(map);
+
+    };
 }
