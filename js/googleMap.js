@@ -14,12 +14,12 @@ function initMap () {
         addMarker(this, e.latLng);
     });
 
-    map.addListener('idle', function (e) {
-        loadSearchBox(this);
-        createRemoveMarkerBin(this);
-    });
+    createRemoveMarkerBin(map);
 
     $('#pac-input').hide();
+
+    $('#loading').remove();
+    $('#map').show();
 }
 
 function addMarker (map, latLng) {
@@ -34,14 +34,40 @@ function addMarker (map, latLng) {
 
     marker.id = gmarkers.length;
 
-    marker.addListener('click', function (e) {
+    marker.addListener('click', function () {
         map.setZoom(20);
         map.setCenter(this.getPosition());
-    });
 
-    marker.addListener('dragend', (function(e) {
-        console.log(e);
-    }));
+        if (!this.infoWindow) {
+            this.infoWindow = generateInfoWindow();
+
+            loadInfoWindowContentForMarker(this);
+        }
+
+        if (this.infoWindow.isOpen) {
+            this.infoWindow.close();
+            this.infoWindow.isOpen = false;
+
+            return true;
+        }
+
+        this.infoWindow.open(map, this);
+        this.infoWindow.isOpen = true;
+    });
+}
+
+function generateInfoWindow () {
+    return new google.maps.InfoWindow();
+}
+
+function loadInfoWindowContentForMarker (marker) {
+    $.ajax({
+        url: "index.php",
+        method: "POST",
+        data: { action: 1 }
+    }).done(function(data) {
+        marker.infoWindow.setContent(data);
+    });
 }
 
 function loadSearchBox (map) {
@@ -53,15 +79,14 @@ function loadSearchBox (map) {
 }
 
 function createRemoveMarkerBin (map) {
-    var removeMarkerBin = new google.maps.OverlayView();
+    var div = document.getElementById('bin');
+    div.addEventListener('dragend', function() {
+        alert("muh");
+    });
 
-    removeMarkerBin.draw = function () {
-        var div = $('#bin');
+    map.controls[google.maps.ControlPosition.LEFT_CENTER].push(div);
+}
 
-        var panes = this.getPanes();
-
-        panes.overlayImage.appendChild($('#bin'));
-        this.setMap(map);
-
-    };
+function openFileDialog () {
+    $('#file').click();
 }
