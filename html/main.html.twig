@@ -18,9 +18,11 @@
     <link href="css/main.css"
           rel="stylesheet"
           type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+{#
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -55,13 +57,21 @@
         </div>
     </div>
 </nav>
+#}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12"
-             style="text-align:center; height:800px">
-            <div id="map"
-                 style="position:relative; height:800px; display:none">
+<div id="mainContainer"
+     class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab"
+                              href="#mapTab"><i class="fa fa-map-marker fa-2x"></i></a></li>
+        <li><a data-toggle="tab"
+               href="#menu1"><i class="fa fa-list-alt fa-2x"></i></a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="mapTab"
+             class="tab-pane fade in active">
+            <div id="map">
             </div>
             <input id="pac-input"></input>
 
@@ -71,25 +81,21 @@
                  width="100"
                  height="100"
                  ondrop="alert('jo');">
+        </div>
 
-            <img id="loading"
-                 alt="self-Logo"
-                 src="icons/default.svg"
-                 width="100"
-                 height="100">
+        <div id="menu1"
+             class="tab-pane fade">
+            <h2>Informationen</h2>
+            <h3>Meine Tiere</h3>
         </div>
     </div>
-
-    <input id="file"
-           type="file"
-           accept="image/*"
-           capture="camera"
-           style="display:none"/>
 </div>
 
-<div id="sideBar">
-    <i class="glyphicon glyphicon-search"
-       style="display: flex; align-items: center;"></i>
-</div>
+<input id="file"
+       type="file"
+       accept="image/*"
+       capture="camera"
+       style="display:none"/>
+
 </body>
 </html>
