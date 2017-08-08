@@ -60,10 +60,10 @@
 #}
 
 <div id="mainContainer"
-     class="container-fluid">
+     class="container">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab"
-                              href="#mapTab"><i class="fa fa-map-marker fa-2x"></i></a></li>
+                              href="#mapTab"><i class="fa fa-globe fa-2x"></i></a></li>
         <li><a data-toggle="tab"
                href="#menu1"><i class="fa fa-list-alt fa-2x"></i></a></li>
     </ul>
@@ -85,10 +85,13 @@
 
         <div id="menu1"
              class="tab-pane fade">
-            <h2>Informationen</h2>
-            <h3>Meine Tiere</h3>
+            {% include 'searchList.html.twig' %}
         </div>
     </div>
+</div>
+
+<div class="modal">
+
 </div>
 
 <input id="file"

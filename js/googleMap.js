@@ -11,18 +11,23 @@ function initMap () {
     });
 
     map.addListener('click', function (e) {
-        addMarker(this, e.latLng);
+        addMarker(this, e.latLng, 0);
     });
-
-    createRemoveMarkerBin(map);
+console.log(reports);
+    $.each(reports, function(reportId, reportData) {
+        addMarker(map, new google.maps.LatLng(reportData.latitude, reportData.longitude), reportId);
+    });
 
     $('#pac-input').hide();
 
-    $('#loading').remove();
     $('#map').show();
 }
 
-function addMarker (map, latLng) {
+function initializeMap (position) {
+
+}
+
+function addMarker (map, latLng, id) {
     var marker = new google.maps.Marker({
         map: map,
         position: latLng,
@@ -32,7 +37,7 @@ function addMarker (map, latLng) {
 
     gmarkers.push(marker);
 
-    marker.id = gmarkers.length;
+    marker.id = id;
 
     marker.addListener('click', function () {
         map.setZoom(20);
@@ -54,6 +59,8 @@ function addMarker (map, latLng) {
         this.infoWindow.open(map, this);
         this.infoWindow.isOpen = true;
     });
+
+    //$('.modalBackground').toggleClass('invisible');
 }
 
 function generateInfoWindow () {
@@ -64,8 +71,8 @@ function loadInfoWindowContentForMarker (marker) {
     $.ajax({
         url: "index.php",
         method: "POST",
-        data: { action: 1 }
-    }).done(function(data) {
+        data: {action: 1, markerId: marker.id}
+    }).done(function (data) {
         marker.infoWindow.setContent(data);
     });
 }
@@ -80,8 +87,7 @@ function loadSearchBox (map) {
 
 function createRemoveMarkerBin (map) {
     var div = document.getElementById('bin');
-    div.addEventListener('dragend', function() {
-        alert("muh");
+    div.addEventListener('dragend', function () {
     });
 
     map.controls[google.maps.ControlPosition.LEFT_CENTER].push(div);

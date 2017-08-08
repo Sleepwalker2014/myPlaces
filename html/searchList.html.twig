@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+        <div id="mapList"
+             class="col-md-12 col-xs-12 col-lg-12 col-sm-12 invisible tab">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Neueste Meldungen
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {% for reportDate in reports %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="thumbnail">
+
+                                <h4><i class="fa fa-warning"></i> {{ reportDate.getDate }}</h4>
+                                <p>{{ reportDate.text }}</p>
+
+                                <i class="fa fa-globe fa-2x"></i>
+                                <i class="fa fa-facebook-square fa-2x"></i>
+                                <i class="fa fa-google-plus-square fa-2x"></i>
+                                <i class="fa fa-twitter-square fa-2x"></i>
+                                <a href="whatsapp://send?text=blubb"><i class="fa fa-whatsapp fa-2x"></i></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
